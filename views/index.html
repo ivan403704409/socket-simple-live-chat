@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			padding: 20px;
+		}
+		*{
+			margin: 0;
+			box-sizing: border-box;
+		}
+		input{
+			outline: none;
+		}
+		#msg{
+			height: 400px;
+			border: 1px solid #eee;
+			border-radius: 8px 8px 0 0;
+			padding: 10px;
+			border-bottom: none;
+			border-left-radius: 0;
+			border-right-radius: 0;
+			overflow: auto;
+		}
+		#chat{
+			display: block;
+			width: 100%;
+			border: 1px solid #eee;
+			padding: 10px;
+			border-radius:  0 0 8px 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Socket Chat Room</h1>
+	<div>
+		<pre class="news"></pre>
+	</div>
+	
+	<div id="msg"></div>
+
+	<form id="form">
+		<input type="text" id="chat" placeholder="type something...">
+	</form>
+
+	<script src="js/socket.io.js"></script>
+	<script>
+		var oChat = document.getElementById('chat')
+		var oMsg = document.getElementById('msg')
+		var oForm = document.getElementById('form')
+		oChat.focus()
+		oForm.onsubmit = function (ev) {
+			ev.preventDefault()
+			if(oChat.value){
+				sendMsg(oChat.value)
+				oMsg.scrollTop = 999999
+				oChat.value = ''
+			}
+		}
+
+
+		var socket = io('http://localhost:8099')
+		socket.on('connect', () => console.log('on connected'))
+		socket.on('msg-update', function(data){
+			let html = ''
+			data.forEach(msg => html += `<p>${msg}</p>`)
+			oMsg.innerHTML = html
+			console.log('msg updated')
+		})
+		socket.on('disconnect', () => {})
+
+		function sendMsg(msg) {
+			socket.emit('send-msg', msg)
+		}
+	</script>
+</body>
+</html>

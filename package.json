@@ -1,0 +1,20 @@
+{
+  "name": "koa2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.1.0",
+    "koa-router": "next",
+    "koa-static": "^3.0.0",
+    "node-fetch": "^1.6.3",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3"
+  }
+}
