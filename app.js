@@ -8,8 +8,9 @@ let router = new Router()
 
 app.use(serve(__dirname + '/assets/'))
 
+const PORT = process.env.PORT || 8099
 router.get('/', async (ctx,next) => {
-	let html = fs.readFileSync('./views/index.html', 'utf-8')
+	let html = fs.readFileSync('./views/index.html', 'utf-8').replace('{{PORT}}', PORT)
 	ctx.body = html
 })
 app.use(router.routes())
@@ -31,6 +32,5 @@ function msgUpdate(client, data) {
 }
 
 
-const PORT = process.env.PORT || 8099
 server.listen(PORT)
 console.log(`server linsten on localhost:${PORT}`)

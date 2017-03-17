@@ -61,7 +61,7 @@
 		}
 
 
-		var socket = io('http://localhost:8099')
+		var socket = io('http://localhost:{{PORT}}')
 		socket.on('connect', () => console.log('on connected'))
 		socket.on('msg-update', function(data){
 			let html = ''
